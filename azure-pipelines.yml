@@ -15,9 +15,12 @@ steps:
   inputs:
     versionSpec: '3.9'
     addToPath: true
-
+    codeCoverageTool: 'cobertura'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
+    
 - script: |
     python -m venv env
     source env/bin/activate
-    pytest test.py
+    coverage run -m pytest test.py
+    coverage report -m
   displayName: 'Run unit tests'
